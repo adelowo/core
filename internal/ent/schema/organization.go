@@ -163,6 +163,7 @@ func (o Organization) Edges() []ent.Edge {
 		}),
 		defaultEdgeToWithPagination(o, PersonalAccessToken{}),
 		hiddenOwnerEdge(o, APIToken{}),
+		hiddenOwnerEdge(o, BrandingSetting{}),
 		hiddenOwnerEdge(o, EmailTemplate{}),
 		hiddenOwnerEdge(o, IntegrationWebhook{}),
 		hiddenOwnerEdge(o, IntegrationRun{}),
