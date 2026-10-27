@@ -17,27 +17,27 @@ import (
 	"github.com/theopenlane/core/v2/internal/ent/validator"
 )
 
-type BrandingSetting struct {
+type OrganizationBrandingSetting struct {
 	SchemaFuncs
 
 	ent.Schema
 }
 
-const SchemaBrandingSetting = "branding_setting"
+const SchemaOrganizationBrandingSetting = "organization_branding_setting"
 
-func (BrandingSetting) Name() string {
-	return SchemaBrandingSetting
+func (OrganizationBrandingSetting) Name() string {
+	return SchemaOrganizationBrandingSetting
 }
 
-func (BrandingSetting) GetType() any {
-	return BrandingSetting.Type
+func (OrganizationBrandingSetting) GetType() any {
+	return OrganizationBrandingSetting.Type
 }
 
-func (BrandingSetting) PluralName() string {
-	return pluralize.NewClient().Plural(SchemaBrandingSetting)
+func (OrganizationBrandingSetting) PluralName() string {
+	return pluralize.NewClient().Plural(SchemaOrganizationBrandingSetting)
 }
 
-func (BrandingSetting) Fields() []ent.Field {
+func (OrganizationBrandingSetting) Fields() []ent.Field {
 	return []ent.Field{
 		field.Bool("remove_assessment_branding").
 			Comment("whether to hide the Openlane branding on the Organization's assessments").
@@ -81,7 +81,7 @@ func (BrandingSetting) Fields() []ent.Field {
 	}
 }
 
-func (b BrandingSetting) Mixin() []ent.Mixin {
+func (b OrganizationBrandingSetting) Mixin() []ent.Mixin {
 	return mixinConfig{
 		excludeTags: true,
 		additionalMixins: []ent.Mixin{
@@ -90,7 +90,7 @@ func (b BrandingSetting) Mixin() []ent.Mixin {
 	}.getMixins(b)
 }
 
-func (b BrandingSetting) Edges() []ent.Edge {
+func (b OrganizationBrandingSetting) Edges() []ent.Edge {
 	return []ent.Edge{
 		uniqueEdgeTo(&edgeDefinition{
 			fromSchema: b,
@@ -104,14 +104,14 @@ func (b BrandingSetting) Edges() []ent.Edge {
 	}
 }
 
-func (BrandingSetting) Indexes() []ent.Index {
+func (OrganizationBrandingSetting) Indexes() []ent.Index {
 	return []ent.Index{
 		index.Fields(ownerFieldName).
 			Unique().Annotations(entsql.IndexWhere("deleted_at is NULL")),
 	}
 }
 
-func (BrandingSetting) Policy() ent.Policy {
+func (OrganizationBrandingSetting) Policy() ent.Policy {
 	return policy.NewPolicy(
 		policy.WithQueryRules(
 			policy.CheckOrgReadAccess(),
@@ -122,15 +122,15 @@ func (BrandingSetting) Policy() ent.Policy {
 	)
 }
 
-func (BrandingSetting) Modules() []models.OrgModule {
+func (OrganizationBrandingSetting) Modules() []models.OrgModule {
 	return []models.OrgModule{
 		models.CatalogBaseModule,
 	}
 }
 
-func (BrandingSetting) Annotations() []schema.Annotation {
+func (OrganizationBrandingSetting) Annotations() []schema.Annotation {
 	return []schema.Annotation{
-		entx.FileCategory(SchemaBrandingSetting),
+		entx.FileCategory(SchemaOrganizationBrandingSetting),
 		entx.FGACrudParent(Organization{}.Name()),
 	}
 }
